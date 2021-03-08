@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="scan_topic" default="lidar_scan" />
+
+    <!--- Run gmapping -->
+    <include file="$(find robot_navigation)/launch/gmapping.launch">
+        <arg name="scan_topic" value="$(arg scan_topic)" />
+    </include>
+
+    <!--- Run Move Base -->
+    <include file="$(find robot_navigation)/launch/move_base.launch" />
+
+</launch>

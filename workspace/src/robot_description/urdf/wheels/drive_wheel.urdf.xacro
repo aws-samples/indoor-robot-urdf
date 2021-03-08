@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robot_description)/urdf/utils/common.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/utils/materials.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/config/drive_wheel_config.urdf.xacro"/>
+
+    <xacro:property name="left_drive_wheel_origin">
+        <origin xyz="${drive_wheel_origin_x} ${drive_wheel_origin_y} ${drive_wheel_origin_z}" rpy="${drive_wheel_origin_r} ${drive_wheel_origin_p} ${drive_wheel_origin_Y}"/>
+    </xacro:property>
+    <xacro:property name="right_drive_wheel_origin">
+        <origin xyz="${drive_wheel_origin_x} -${drive_wheel_origin_y} ${drive_wheel_origin_z}" rpy="${drive_wheel_origin_r} ${drive_wheel_origin_p} ${drive_wheel_origin_Y}"/>
+    </xacro:property>
+
+    <xacro:macro name="drive_wheel" params="prefix">
+
+        <link name="${prefix}_drive_wheel">
+
+            <visual name="${prefix}_drive_wheel_visual">
+	        <xacro:set_material color="${drive_wheel_color}"/>
+		<xacro:cylinder_geometry radius="${drive_wheel_radius}" height="${drive_wheel_height}"/>
+  	    </visual>
+	    <xacro:cylinder_collision radius="${drive_wheel_radius}" height="${drive_wheel_height}"/>
+	    <xacro:cylinder_inertia mass="${drive_wheel_mass}" radius="${drive_wheel_radius}" height="${drive_wheel_height}"/>
+        </link>
+
+        <joint name="${prefix}_drive_wheel_body_joint" type="continuous">
+            <xacro:if value="${prefix == 'left'}">
+                <xacro:insert_block name="left_drive_wheel_origin" />
+            </xacro:if>
+            <xacro:if value="${prefix == 'right'}">
+                <xacro:insert_block name="right_drive_wheel_origin" />
+            </xacro:if>
+          
+            <parent link="body"/>
+	    <child link="${prefix}_drive_wheel"/>
+	    <axis xyz="0 0 1"/>
+        </joint>
+  
+        <transmission name="${prefix}_drive_wheel_transmission" type="SimpleTransmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_drive_wheel_body_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_drive_wheel_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+		<motorTorqueConstant>1</motorTorqueConstant>
+            </actuator>
+        </transmission>
+    
+        <gazebo reference="${prefix}_drive_wheel">
+            <mu value="${drive_wheel_mu}"/>
+            <mu1 value="${drive_wheel_mu1}"/>
+            <mu2 value="${drive_wheel_mu2}"/>
+            <kp value="${drive_wheel_kp}" />
+            <kd value="${drive_wheel_kd}" />
+            <fdir1 value="1 0 0"/>
+            <dynamics damping="${drive_wheel_damping}" friction="${drive_wheel_friction}" />
+        </gazebo>
+
+        <gazebo reference="${prefix}_drive_wheel">
+	    <xacro:set_gazebo_material color="${drive_wheel_color}"/>
+        </gazebo>
+    
+    </xacro:macro>
+
+</robot>
+

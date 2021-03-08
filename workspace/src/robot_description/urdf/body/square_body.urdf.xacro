@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+ 
+    <xacro:include filename="$(find robot_description)/urdf/utils/common.urdf.xacro"/> 
+    <xacro:include filename="$(find robot_description)/urdf/config/square_body_config.urdf.xacro"/> 
+  
+    <xacro:macro name="square_body" >
+    
+        <link name='body'>
+            <xacro:box_inertia mass="${body_mass}" 
+				width="${body_width}" 
+				length="${body_length}" 
+				height="${body_height}"/> 
+            <xacro:box_collision width="${body_width}" length="${body_length}" height="${body_height}"/>
+
+            <visual name='body_visual'>
+                <xacro:box_geometry width="${body_width}" length="${body_length}" height="${body_height}"/>
+                <xacro:set_material color="${body_color}"/>            
+            </visual>
+
+        </link>
+
+        <joint name="body_base_link_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <parent link="base_link"/>
+            <child link="body"/>
+        </joint>
+     	<gazebo reference="body">
+            <xacro:set_gazebo_material color="${body_color}"/>
+        </gazebo>  
+
+        <gazebo reference="body">
+            <kp value="${body_kp}" />
+            <kd value="${body_kd}" />
+        </gazebo>
+
+
+    </xacro:macro>
+
+</robot>

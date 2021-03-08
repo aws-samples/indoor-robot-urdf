@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robot_description)/urdf/utils/common.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/utils/materials.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/config/ball_wheel_config.urdf.xacro"/>
+
+    <xacro:macro name="ball_wheel">
+
+        <link name="ball_wheel_link">
+            <visual name='base_wheel'>
+	        <xacro:sphere_geometry radius="${ball_wheel_radius}"/>	
+		<xacro:set_material color="${ball_wheel_color}"/>
+	    </visual>
+	    <xacro:sphere_inertia mass="${ball_wheel_mass}" radius="${ball_wheel_radius}"/>
+	    <xacro:sphere_collision radius="${ball_wheel_radius}"/>
+        </link>
+
+        <joint name="ball_wheel_body_joint" type="fixed">
+	    <origin xyz="${ball_wheel_origin_x} ${ball_wheel_origin_y} ${ball_wheel_origin_z}" rpy="${ball_wheel_origin_r} ${ball_wheel_origin_p} ${ball_wheel_origin_Y}"/> 
+            <parent link="body"/>
+	    <child link="ball_wheel_link"/>
+        </joint>
+
+        <gazebo reference="ball_wheel">
+		<!--	<mu value="${ball_wheel_mu}"/>-->
+            <mu1 value="${ball_wheel_mu1}"/>
+            <mu2 value="${ball_wheel_mu2}"/>
+            <kp value="${ball_wheel_kp}" />
+            <kd value="${ball_wheel_kd}" />
+            <fdir1 value="1 0 0"/>
+	    <!--<dynamics damping="${ball_wheel_damping}" friction="${ball_wheel_friction}" />-->
+        </gazebo>
+  
+        <gazebo reference="ball_wheel_link">
+ 	    <xacro:set_gazebo_material color="${ball_wheel_color}"/>    
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>
+

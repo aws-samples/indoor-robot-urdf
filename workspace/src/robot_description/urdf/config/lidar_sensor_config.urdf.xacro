@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- lidar properties -->
+  <xacro:property name="lidar_mass"  value="0.625"/>
+  <xacro:property name="lidar_radius"  value="0.0408"/>
+  <xacro:property name="lidar_height"  value="0.035"/>
+
+  <xacro:property name="lidar_origin_x"  value="0.0555"/>
+  <xacro:property name="lidar_origin_y" value="0.0"/>
+  <xacro:property name="lidar_origin_z" value="0.06"/>
+  <xacro:property name="lidar_origin_r"  value="0.0"/>
+  <xacro:property name="lidar_origin_p" value="0.0"/>
+  <xacro:property name="lidar_origin_Y" value="1.74532922"/>
+
+  <xacro:property name="lidar_color"  value="Grey"/>
+
+  <xacro:property name="lidar_update_rate" value="7.0"/>
+  <xacro:property name="lidar_hsamples" value="720"/>
+  <xacro:property name="lidar_hresolution" value="1.0"/>
+  <xacro:property name="lidar_hmin_angle" value="-3.141592653"/>
+  <xacro:property name="lidar_hmax_angle" value="3.141592653"/>
+  <xacro:property name="lidar_rmin" value="0.12"/>
+  <xacro:property name="lidar_rmax" value="6.0"/>
+  <xacro:property name="lidar_rresolution" value="0.015"/>
+
+</robot>
+

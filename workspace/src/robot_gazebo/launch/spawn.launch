@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_namespace" default="/"/>
+
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="0.1"/>
+    <arg name="yaw" default="0.0"/>
+    <arg name="robot_body_type" default="square_body"/> <!-- body_types: square_body; round_body-->
+
+    <group ns="$(arg robot_namespace)">
+
+        <include file="$(find robot_control)/launch/robot_control.launch">
+            <arg name="robot_body_type" value="$(arg robot_body_type)"/>
+        </include>
+
+        <!-- Spawn robot in gazebo -->
+        <node name="spawn_robot_model" pkg="gazebo_ros" type="spawn_model"
+            args="-x $(arg x)
+                  -y $(arg y)
+                  -z $(arg z)
+                  -Y $(arg yaw)
+                  -unpause
+                  -urdf
+                  -param robot_description
+                  -model $(arg robot_namespace)" />
+
+    </group>
+
+</launch>

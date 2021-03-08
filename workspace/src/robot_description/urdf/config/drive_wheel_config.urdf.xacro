@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="body_type" value="$(arg robot_body_type)"/>
+
+  <xacro:if value="${body_type == 'round_body'}">
+	<xacro:include filename="$(find robot_description)/urdf/body/round_body.urdf.xacro"/>
+	<xacro:property name="body_length" value="${body_radius * 2}"/>
+  </xacro:if>
+  <xacro:if value="${body_type == 'square_body'}">
+  	<xacro:include filename="$(find robot_description)/urdf/body/square_body.urdf.xacro"/>
+  </xacro:if>
+
+
+
+<!-- drive_wheel properties -->
+  <xacro:property name="drive_wheel_mass"  value="0.9"/>
+  <xacro:property name="drive_wheel_radius"  value="0.035"/>
+  <xacro:property name="drive_wheel_height"  value="0.024"/>
+
+  <xacro:property name="drive_wheel_origin_x"  value="0.0"/>
+  <!--<xacro:property name="drive_wheel_origin_y" value="0.11"/>-->
+  <xacro:property name="drive_wheel_origin_y" value="${body_length/2 + drive_wheel_height/2 + 0.0001}"/>
+  <!--<xacro:property name="drive_wheel_origin_z" value="-0.02"/>-->
+  <xacro:property name="drive_wheel_origin_z" value="${-body_height/2}"/>
+  <xacro:property name="drive_wheel_origin_r"  value="1.57"/>
+  <xacro:property name="drive_wheel_origin_p" value="0.0"/>
+  <xacro:property name="drive_wheel_origin_Y" value="3.14"/>
+
+  <xacro:property name="drive_wheel_color"  value="Grey"/>
+
+  <xacro:property name="drive_wheel_mu"  value="10.0"/>
+  <xacro:property name="drive_wheel_mu1"  value="10.0"/>
+  <xacro:property name="drive_wheel_mu2"  value="10.0"/>
+  <xacro:property name="drive_wheel_kp"  value="10000000.0"/>
+  <xacro:property name="drive_wheel_kd"  value="1.0"/>  
+  <xacro:property name="drive_wheel_damping"  value="0.001"/>
+  <xacro:property name="drive_wheel_friction"  value="10.0"/>
+</robot>
+

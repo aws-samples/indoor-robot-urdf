@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+    <xacro:macro name="set_material" params="color">
+	<material name="${color}">
+	    <xacro:if value="${color == 'White'}">
+                <color rgba="1.0 1.0 1.0 1.0"/>
+	    </xacro:if>
+	    <xacro:if value="${color == 'Black'}">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+	    </xacro:if>
+	    <xacro:if value="${color == 'Red'}">
+        	<color rgba="1.0 0.0 0.0 1.0"/>
+	    </xacro:if>
+	    <xacro:if value="${color == 'Green'}">
+        	<color rgba="0.0 1.0 0.0 1.0"/>    
+	    </xacro:if>
+	    <xacro:if value="${color == 'Blue'}">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+	    </xacro:if>
+	    <xacro:if value="${color == 'Yellow'}">
+                <color rgba="1.0 1.0 0.0 1.0"/>
+	    </xacro:if>
+	    <xacro:if value="${color == 'Grey'}">
+                <color rgba="0.5 0.5 0.5 1.0"/>
+	    </xacro:if>
+        </material>
+    </xacro:macro>
+    
+    <!-- Full list of colors is available here
+	 http://wiki.ros.org/simulator_gazebo/Tutorials/ListOfMaterials
+    -->
+    <xacro:macro name="set_gazebo_material" params="color">
+	    <material>Gazebo/${color}</material>	
+    </xacro:macro>
+
+
+</robot>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+    <remap from="cmd_vel" to="aws_robot_velocity_controller/cmd_vel"/>
+
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/>
+</launch>

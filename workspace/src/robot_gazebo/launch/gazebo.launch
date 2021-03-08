@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_body_type" default="square_body"/> <!-- body_types: square_body; round_body-->
+
+    <include file="$(find robot_gazebo)/launch/world.launch" />
+
+    <include file="$(find robot_gazebo)/launch/spawn.launch">
+        <arg name="robot_body_type" value="$(arg robot_body_type)"/>
+    </include>
+
+</launch>

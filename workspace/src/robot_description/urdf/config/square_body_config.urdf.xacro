@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- body properties -->
+  <xacro:property name="body_width"  value="0.34"/>
+  <xacro:property name="body_length"  value="0.24"/>
+  <xacro:property name="body_height" value="0.08"/>
+  <xacro:property name="body_mass" value="6.0"/>
+
+  <xacro:property name="body_color"  value="Black"/>
+  <xacro:property name="body_kp"  value="${1.0*(1e26)}"/>
+  <xacro:property name="body_kd"  value="${6.0*(1e10)}"/>
+
+
+</robot>
+
+

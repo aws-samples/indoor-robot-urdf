@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robot_description)/urdf/utils/common.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/utils/materials.urdf.xacro"/>
+    <xacro:include filename="$(find robot_description)/urdf/config/lidar_sensor_config.urdf.xacro"/>
+
+    <xacro:macro name="lidar">
+
+        <link name="lidar">
+            <visual name='lidar'>
+	        <xacro:cylinder_geometry radius="${lidar_radius}" height="${lidar_height}"/>
+	        <xacro:set_material color="${lidar_color}"/>
+	    </visual>		  
+	    <xacro:cylinder_collision radius="${lidar_radius}" height="${lidar_height}"/>
+	    <xacro:cylinder_inertia mass="${lidar_mass}" radius="${lidar_radius}" height="${lidar_height}"/>
+        </link>
+
+        <joint name="lidar_body_joint" type="fixed">
+	    <origin xyz="${lidar_origin_x} ${lidar_origin_y} ${lidar_origin_z}" rpy="${lidar_origin_r} ${lidar_origin_p} ${lidar_origin_Y}"/> 
+            <parent link="body"/>
+	    <child link="lidar"/>
+        </joint>
+
+        <gazebo reference="lidar">
+            <sensor name="lidar" type="ray">
+                <always_on>1</always_on>
+                <visualize>0</visualize>
+                <update_rate>${lidar_update_rate}</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>${lidar_hsamples}</samples>
+                            <resolution>${lidar_hresolution}</resolution>
+                            <min_angle>${lidar_hmin_angle}</min_angle>
+                            <max_angle>${lidar_hmax_angle}</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>${lidar_rmin}</min>
+                        <max>${lidar_rmax}</max>
+                        <resolution>${lidar_rresolution}</resolution>
+                    </range>
+                   <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_laser.so">
+                    <robotNamespace>$(arg robot_namespace)</robotNamespace>
+                    <topicName>lidar_scan</topicName>
+                    <frameName>lidar</frameName>
+                </plugin>
+            </sensor>
+        </gazebo>
+	
+	<gazebo reference="lidar">
+	    <xacro:set_gazebo_material color="${lidar_color}"/>
+	</gazebo>
+
+    </xacro:macro>
+
+</robot>
+

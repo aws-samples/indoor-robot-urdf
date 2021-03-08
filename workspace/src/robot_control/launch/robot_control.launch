@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_body_type" default="square_body"/> <!-- body_types: square_body; round_body-->
+
+    <!-- Load robot description -->
+    <include file="$(find robot_description)/launch/description.launch">
+        <arg name="robot_body_type" value="$(arg robot_body_type)"/>
+    </include>
+    <!-- Load controller configuration -->
+    <rosparam command="load" file="$(find robot_control)/config/robot_control.yaml" />
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+	<rosparam command="load" file="$(find robot_control)/config/localization.yaml" />
+    </node>
+
+    <!-- Spawn controllers -->
+    <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
+        args="aws_robot_joint_publisher aws_robot_velocity_controller"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <remap from="cmd_vel" to="aws_robot_velocity_controller/cmd_vel"/>
+    <remap from="odom" to="aws_robot_velocity_controller/odom"/>
+
+</launch>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- imu properties -->
+  <xacro:property name="imu_origin_x"  value="0.0"/>
+  <xacro:property name="imu_origin_y" value="0.0"/>
+  <xacro:property name="imu_origin_z" value="0.0"/>
+  <xacro:property name="imu_origin_r"  value="0.0"/>
+  <xacro:property name="imu_origin_p" value="0.0"/>
+  <xacro:property name="imu_origin_Y" value="0.0"/>
+
+</robot>
+

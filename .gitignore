@@ -1,0 +1,6 @@
+workspace/src/deps/*
+workspace/install/*
+workspace/log/*
+workspace/bundle/*
+workspace/build/*
+workspace/devel/*

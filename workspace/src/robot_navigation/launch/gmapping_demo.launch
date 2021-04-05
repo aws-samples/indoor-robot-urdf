@@ -11,4 +11,6 @@
     <!--- Run Move Base -->
     <include file="$(find robot_navigation)/launch/move_base.launch" />
 
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_description)/rviz/mapping_view.rviz" />
+
 </launch>

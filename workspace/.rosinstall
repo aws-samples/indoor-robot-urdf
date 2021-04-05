@@ -1,0 +1,2 @@
+- git: {local-name: src/deps/aws-robomaker-small-house-world, uri: 'https://github.com/aws-robotics/aws-robomaker-small-house-world.git', version: ros1}
+

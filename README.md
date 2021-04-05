@@ -14,7 +14,7 @@ rosws update
 rosdep install --from-path src --ignore-src -r -y
 catkin_make
 source devel/setup.bash
-roslaunch simulation_app mapping_sample_application.launch 
+roslaunch robot_gazebo gazebo.launch 
 ```
 
 ### With [Colcon](https://colcon.readthedocs.io/en/released/user/quick-start.html#build-ros-1-packages)
@@ -25,12 +25,33 @@ rosws update
 rosdep install --from-path src --ignore-src -r -y
 colcon build
 source install/setup.bash
-roslaunch simulation_app mapping_sample_application.launch 
+roslaunch robot_gazebo gazebo.launch 
 ```
 
+You will be viewing the robot in a Gazebo environment as below:
+![Robot in Gazebo](readmeimages/robot_in_gazebo.png)
 
-* Change the title in this README
-* Edit your repository description on GitHub
+To Launch mapping sample application, open a new terminal with the program running, and launch the mapping rospacakges with
+
+```
+roslaunch robot_navigation gmapping_demo.launch
+```
+
+You will be viewing the robot running the mapping process, with a view from rviz as below:
+![Robot in Rviz](readmeimages/robot_in_rviz.png)
+
+## URDF
+
+The configurable URDF of the robot is present [here](workspace/src/robot_description/urdf/) in the repository and can be viewed separately in rviz by running the command
+
+```
+roslaunch robot_description robot_view.launch
+```
+**Note:** Kill all ros processes before you run this command, since it launches the description ros-package which is also present in the gmapping demo. 
+
+The Rviz view looks as following
+![Robot description in Rviz](readmeimages/robot_description_in_rviz.png)
+
 
 ## Security
 
